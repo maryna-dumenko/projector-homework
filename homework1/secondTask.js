@@ -12,9 +12,7 @@ for(let i = 0; i < userNames.length; i++) {
 
 // Sort array using method sort
 let filteredNamesSecondMethod = userNames.filter(function (name) {
-    if(vowelsArray.indexOf(name[0]) !== -1) {
-        return name;
-    }
+    return vowelsArray.includes(name[0])
 });
 
 console.log(filteredNames); // ['Емма', 'Юстин', 'Ілля', 'Яна', 'Антон', 'Олена']
