@@ -17,7 +17,7 @@ function durationBetweenDates(startDate = "16 Jan 1995", endDate = "24 Feb 2022"
         default:
             result = differenceInSeconds;
     }
-    return result;
+    return `${result} ${dimension}`;
 }
 
 console.log(durationBetweenDates('02 Aug 1985', '03 Aug 1985', 'seconds'));  // поверне '86400 seconds'
