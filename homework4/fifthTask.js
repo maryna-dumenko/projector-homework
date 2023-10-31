@@ -6,10 +6,10 @@ function slower(func, seconds) {
     return function(...args) {
         setTimeout(() => {
             func.apply(this, args)
-        },seconds)
+        },seconds*1000);
     }
 }
 
-let slowedSomeFunction = slower(introduceEmployee, 2000);
+const slowedSomeFunction = slower(introduceEmployee, 2);
 
-slowedSomeFunction("Maryna Dumenko", "markup developer", 6, 4)
+slowedSomeFunction("Maryna Dumenko", "markup developer", 6, 4);
