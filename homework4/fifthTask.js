@@ -5,7 +5,7 @@ function introduceEmployee (name, profession, yearsExperience, yearsExperienceIn
 function slower(func, seconds) {
     return function(...args) {
         setTimeout(() => {
-            func.apply(this, args)
+            func.apply(this, args);
         },seconds*1000);
     }
 }
