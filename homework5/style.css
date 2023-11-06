@@ -1,0 +1,40 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #cfe0f7;
+}
+
+.section--dark {
+    background-color: #2e2e37;
+}
+
+.button {
+    background-color: #dddada;
+    padding: 4px 12px;
+    border: 1px solid grey;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button:focus {
+    box-shadow: 0 1px 16px 0 rgba(0,0,0,0.24);
+}
+
+.info-message {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #2e2e37;
+}
+
+.section--dark .info-message {
+    color: #fff;
+}
