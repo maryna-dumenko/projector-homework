@@ -2,31 +2,26 @@ const buttonToggle = document.querySelector(".button--toggle");
 const container = document.querySelector(".section");
 const infoMessage = document.querySelector(".info-message")
 
-let pageState = {};
-document.addEventListener('DOMContentLoaded', () => {
-    pageState = localStorage.getItem('pageState') !== null
-        ? JSON.parse(localStorage.getItem('pageState'))
-        : {
-            isTurnedOn: false,
-            lastTimeTurnedOn: null,
-            lastTimeTurnedOff: null
-        };
+function getPageStateFromStorage() {
+    return JSON.parse(localStorage.getItem('pageState')) || {
+        isTurnedOn: false,
+        lastTimeTurnedOn: null,
+        lastTimeTurnedOff: null
+    };
+}
 
-    updatePage();
-});
-
-buttonToggle.addEventListener("click", function (e){
-    updateState(e, new Date());
+buttonToggle.addEventListener("click", function (){
+    updateState(getPageStateFromStorage(), new Date());
 })
 
-function updatePage() {
-    buttonToggle.innerText = pageState.isTurnedOn ? "Turn on" : "Turn off";
-    if (pageState.isTurnedOn) {
+function updatePage(state) {
+    buttonToggle.innerText = state.isTurnedOn ? "Turn on" : "Turn off";
+    if (state.isTurnedOn) {
         container.classList.add("section--dark");
-        infoMessage.innerText = pageState.lastTimeTurnedOn ? `Last turn off: ${pageState.lastTimeTurnedOn}` : "";
+        infoMessage.innerText = state.lastTimeTurnedOn ? `Last turn off: ${state.lastTimeTurnedOn}` : "";
     } else {
         container.classList.remove("section--dark");
-        infoMessage.innerText =  pageState.lastTimeTurnedOff ? `Last turn on: ${pageState.lastTimeTurnedOff}`: "";
+        infoMessage.innerText =  state.lastTimeTurnedOff ? `Last turn on: ${state.lastTimeTurnedOff}`: "";
     }
 }
 
@@ -34,11 +29,13 @@ function getDateFormatted(date) {
     return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
 }
 
-function updateState(event, date) {
-    pageState.lastTimeTurnedOff = pageState.isTurnedOn? getDateFormatted(date) : pageState.lastTimeTurnedOff;
-    pageState.lastTimeTurnedOn = !pageState.isTurnedOn? getDateFormatted(date) : pageState.lastTimeTurnedOn;
-    pageState.isTurnedOn = !pageState.isTurnedOn;
+function updateState(state, date) {
+    state.lastTimeTurnedOff = state.isTurnedOn? getDateFormatted(date) : state.lastTimeTurnedOff;
+    state.lastTimeTurnedOn = !state.isTurnedOn? getDateFormatted(date) : state.lastTimeTurnedOn;
+    state.isTurnedOn = !state.isTurnedOn;
 
-    localStorage.setItem('pageState', JSON.stringify(pageState));
-    updatePage();
+    localStorage.setItem('pageState', JSON.stringify(state));
+    updatePage(state);
 }
+
+updatePage(getPageStateFromStorage());
